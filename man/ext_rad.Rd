@@ -27,8 +27,8 @@ ext_rad(lat = -15.0, date = "2024-06-21")
 
 # Example with a large dataset
 set.seed(123)
-test_lat <- runif(10000, -89, 89)  # Generate random latitudes within recommended range
-test_date <- as.Date("2023-01-01") + sample(0:364, 10000, replace = TRUE)  # Generate random dates in 2023
+test_lat <- runif(10000, -89, 89) # Generate random latitudes within recommended range
+test_date <- as.Date("2023-01-01") + sample(0:364, 10000, replace = TRUE) # Generate random dates in 2023
 result_ext_rad <- ext_rad(test_lat, test_date)
 print(head(result_ext_rad))
 

@@ -18,9 +18,9 @@ A numeric vector representing the solar declination angle in degrees (default) o
 \code{sol_dec} calculates the solar declination angle (delta) for a given date. The solar declination is the angle between the rays of the sun and the plane of the Earth's equator.
 }
 \examples{
-sol_dec(as.Date("2024-03-15"))          # Returns in degrees (default)
-sol_dec(as.Date("2024-03-15"), TRUE)    # Returns in radians
-sol_dec(75)                             # Julian day in degrees
+sol_dec(as.Date("2024-03-15")) # Returns in degrees (default)
+sol_dec(as.Date("2024-03-15"), TRUE) # Returns in radians
+sol_dec(75) # Julian day in degrees
 # Handling a large dataset of dates (e.g., 100,000 dates)
 large_dates <- as.Date("2024-01-01") + 0:99999
 result_large <- sol_dec(large_dates)

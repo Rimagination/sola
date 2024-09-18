@@ -49,6 +49,8 @@ set.seed(123)
 test_lat <- runif(10000, -90, 90)
 test_date <- as.Date("2023-01-01") + sample(1:365, 10000, replace = TRUE)
 test_ssd <- runif(10000, 0, 24)
-system.time({ sol_rad(lat = test_lat, date = test_date, ssd = test_ssd) })
+system.time({
+  sol_rad(lat = test_lat, date = test_date, ssd = test_ssd)
+})
 
 }

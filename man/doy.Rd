@@ -21,10 +21,10 @@ If the input is numeric, the function treats it as Julian days. If the input is 
 The function uses \code{\link[base]{format}} to extract the day of the year from valid date objects.
 }
 \examples{
-doy("2024-05-03")                          # Using a date-like string
-doy(as.Date("2024-05-03 13:14:00"))        # Using a Date object with time
-doy(c("2023-01-01", "2023-12-31"))         # Vectorized input with multiple dates
-doy(150)                                   # Using a numeric value (Julian day)
+doy("2024-05-03") # Using a date-like string
+doy(as.Date("2024-05-03 13:14:00")) # Using a Date object with time
+doy(c("2023-01-01", "2023-12-31")) # Vectorized input with multiple dates
+doy(150) # Using a numeric value (Julian day)
 
 }
 \seealso{

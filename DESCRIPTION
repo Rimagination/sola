@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Liang", "Ren", , "Liang.Ren@mails.bnu.deu.cn", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2360-7900"))
-Description: The 'sola' package provides functions to calculate solar radiation based on daylight hours and other related information using parallel computing techniques, which enhances computational efficiency.
+Description: The 'sola' package provides functions to calculate solar radiation based on daylight hours and other related information. The package leverages vectorized calculations for improved performance on large datasets.
 License: GPL-2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
