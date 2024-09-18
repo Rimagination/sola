@@ -7,19 +7,18 @@
 day_length(lat, date)
 }
 \arguments{
-\item{lat}{Numeric. Latitude in degrees. Use positive values for north, negative for south.}
+\item{lat}{Numeric vector. Latitude in degrees. Use positive values for north, negative for south.}
 
-\item{date}{A Date object or a date-like string that can be coerced to Date.}
+\item{date}{A Date object or a date-like string vector that can be coerced to Date.}
 }
 \value{
-Numeric. Day length in hours.
+Numeric vector. Day length in hours.
 }
 \description{
 \code{day_length} calculates the maximum possible day length (sunshine duration) based on latitude and date.
 }
 \examples{
 day_length(lat = 35, date = as.Date("2023-03-15"))
-
-day_length(lat = -15, date = "2024-06-21")
+day_length(lat = c(-15, 45), date = c("2024-06-21", "2023-12-21"))
 
 }

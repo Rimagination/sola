@@ -7,20 +7,23 @@
 sol_dec(dat, in_radians = FALSE)
 }
 \arguments{
-\item{dat}{A Date object or a date-like string that can be coerced to Date.}
+\item{dat}{A Date object, a date-like string, or a numeric value that can be coerced to Date.}
 
 \item{in_radians}{Logical. If \code{TRUE}, returns the declination in radians. If \code{FALSE} (default), returns in degrees.}
 }
 \value{
-A numeric value representing the solar declination angle in degrees (default) or radians.
+A numeric vector representing the solar declination angle in degrees (default) or radians.
 }
 \description{
-\code{sol_dec} calculates the solar declination angle (delta) for a given date.
+\code{sol_dec} calculates the solar declination angle (delta) for a given date. The solar declination is the angle between the rays of the sun and the plane of the Earth's equator.
 }
 \examples{
 sol_dec(as.Date("2024-03-15"))          # Returns in degrees (default)
 sol_dec(as.Date("2024-03-15"), TRUE)    # Returns in radians
 sol_dec(75)                             # Julian day in degrees
+# Handling a large dataset of dates (e.g., 100,000 dates)
+large_dates <- as.Date("2024-01-01") + 0:99999
+result_large <- sol_dec(large_dates)
 
 }
 \references{

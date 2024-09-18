@@ -2,53 +2,53 @@
 % Please edit documentation in R/sol_rad.R
 \name{sol_rad}
 \alias{sol_rad}
-\title{Estimate Solar Radiation using the Angstrom-Prescott model}
+\title{Estimate Solar Radiation using the Angstrom-Prescott Model}
 \usage{
-sol_rad(
-  lat,
-  date,
-  ssd,
-  N = NULL,
-  ext_rad = NULL,
-  method = "standard",
-  A = NA,
-  B = NA
-)
+sol_rad(lat, date, ssd, N = NULL, ext_rad = NULL, A = 0.25, B = 0.5)
 }
 \arguments{
-\item{lat}{Numeric. Latitude in degrees. Use positive values for north, negative for south.}
+\item{lat}{Numeric vector. Latitude in degrees. Positive values indicate locations north of the equator, and negative values indicate locations south of the equator.}
 
-\item{date}{Date or character. A Date object or a date-like string that can be coerced to Date.}
+\item{date}{Date or character vector. The date for which the solar radiation is estimated. It accepts Date objects or date-like strings that can be coerced to Date.}
 
-\item{ssd}{Numeric. Sunshine duration in hours.}
+\item{ssd}{Numeric vector. Sunshine duration in hours, representing the actual hours of sunshine received on the given day.}
 
-\item{N}{Numeric. Numeric value for maximum possible sunshine duration (day length) in hours. If not provided, it is calculated.}
+\item{N}{Optional numeric vector. The maximum possible sunshine duration (day length) in hours. If not provided, it is calculated based on latitude and date.}
 
-\item{ext_rad}{Optional. Numeric value for extraterrestrial radiation in MJ/m²/day. If not provided, it is calculated.}
+\item{ext_rad}{Optional numeric vector. Extraterrestrial radiation in MJ/m²/day. If not provided, it is calculated based on latitude and date.}
 
-\item{method}{Character. Calculation method: "standard" (Default), "parallel", or "gpu".}
+\item{A}{Numeric. Angstrom-Prescott coefficient A, defaulting to 0.25. This coefficient is used in the calculation of solar radiation.}
 
-\item{B}{Numeric. Angstrom-Prescott coefficient B (default is derived if not provided).}
+\item{B}{Numeric. Angstrom-Prescott coefficient B, defaulting to 0.50. This coefficient is used in the calculation of solar radiation.}
 }
 \value{
-Numeric. Estimated solar radiation in MJ/m²/day.
+A numeric vector of estimated solar radiation values in MJ/m²/day for the given latitude, date, and sunshine duration.
 }
 \description{
-\code{sol_rad} estimates daily solar radiation on a horizontal surface based on sunshine duration using the Angstrom-Prescott model.
-If extraterrestrial radiation (\code{ext_rad}) or maximum possible sunshine duration (\code{N}) is not provided, they are calculated within the function.
+The \code{sol_rad} function estimates daily solar radiation on a horizontal surface using the Angstrom-Prescott model, based on sunshine duration, latitude, and date. The function can internally calculate extraterrestrial radiation (\code{ext_rad}) and maximum possible sunshine duration (\code{N}) if these are not provided as inputs.
+}
+\details{
+The function uses the Angstrom-Prescott equation to estimate solar radiation:
+\deqn{R_s = (A + B \times (ssd / N)) \times ext\_rad}
+where \code{R_s} is the estimated solar radiation, \code{ssd} is the actual sunshine duration, \code{N} is the maximum possible sunshine duration, and \code{ext_rad} is the extraterrestrial radiation.
+
+If either \code{N} or \code{ext_rad} is not provided, the function calculates them using the input latitude and date. Values of \code{N} that are zero or negative are replaced with a very small positive number (1e-6) to avoid division by zero errors.
 }
 \examples{
+# Estimate solar radiation for a single location and date
 sol_rad(lat = 35.0, date = as.Date("2023-03-15"), ssd = 8)
-sol_rad(lat = -15.0, date = "2024-06-21", ssd = 10, method = "parallel")
-sol_rad(lat = c(35,20), date = c("2023-03-15","2022-02-15"), ssd = c(8,5))
 
-# Create a test vector with 1000 elements
+# Estimate for another date and location
+sol_rad(lat = -15.0, date = "2024-06-21", ssd = 10)
+
+# Estimate solar radiation for multiple locations and dates
+sol_rad(lat = c(35, 20), date = c("2023-03-15", "2022-02-15"), ssd = c(8, 5))
+
+# Performance test with large datasets
 set.seed(123)
 test_lat <- runif(10000, -90, 90)
 test_date <- as.Date("2023-01-01") + sample(1:365, 10000, replace = TRUE)
 test_ssd <- runif(10000, 0, 24)
-# Compare computation times
-system.time({sol_rad(lat = test_lat, date = test_date, ssd = test_ssd, method = "standard")})
-system.time({  sol_rad(lat = test_lat, date = test_date, ssd = test_ssd, method = "parallel")})
+system.time({ sol_rad(lat = test_lat, date = test_date, ssd = test_ssd) })
 
 }

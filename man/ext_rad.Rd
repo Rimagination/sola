@@ -2,23 +2,34 @@
 % Please edit documentation in R/ext_rad.R
 \name{ext_rad}
 \alias{ext_rad}
-\title{Calculate Extraterrestrial Solar Radiation (Ra)}
+\title{Extraterrestrial Solar Radiation (Ra) Calculation}
 \usage{
 ext_rad(lat, date)
 }
 \arguments{
-\item{lat}{Numeric. Latitude in degrees. Use positive values for north, negative for south.}
+\item{lat}{Numeric vector. Latitude in degrees, where positive values are for the northern hemisphere and negative for the southern hemisphere.}
 
-\item{date}{Date or date-like string. A Date object or a string that can be coerced to a Date.}
+\item{date}{Date or date-like string vector. A Date object or a string that can be coerced to a Date.}
 }
 \value{
-Numeric. Extraterrestrial radiation in MJ/m²/day.
+Numeric vector. Extraterrestrial radiation in MJ/m²/day.
 }
 \description{
 \code{ext_rad} calculates extraterrestrial radiation based on latitude and date.
 }
+\details{
+The function computes the extraterrestrial solar radiation on a horizontal surface using the latitude and day of the year.
+It ensures valid calculations by keeping sunset hour angle values within the range of the \code{acos} function.
+}
 \examples{
 ext_rad(lat = 35.0, date = as.Date("2023-03-15"))
 ext_rad(lat = -15.0, date = "2024-06-21")
+
+# Example with a large dataset
+set.seed(123)
+test_lat <- runif(10000, -89, 89)  # Generate random latitudes within recommended range
+test_date <- as.Date("2023-01-01") + sample(0:364, 10000, replace = TRUE)  # Generate random dates in 2023
+result_ext_rad <- ext_rad(test_lat, test_date)
+print(head(result_ext_rad))
 
 }
