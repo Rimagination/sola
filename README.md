@@ -6,11 +6,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+# The goal of `sola` is to provide tools for solar resource assessment and utilization. This package implements the function of calculating solar radiation based on sunshine hours, latitude, and other related parameters. Compared with other existing packages, the main advantage of `sola` is the use of vectorization operations, allowing for efficient calculation of large datasets. In addition, the functions of this package are constantly being enriched to meet the relevant functions required for solar energy resource assessment.
+
 The goal of `sola` is to provide tools for solar resource assessment and
 utilization. The package implements functions for calculating solar
-radiation based on daylight hours, latitude, and other related
+radiation based on sunshine hours, latitude, and other related
 parameters. The main advantage of `sola` is the use of vectorized
 operations, allowing efficient computation of large datasets.
+\>\>\>\>\>\>\> Stashed changes
 
 ## Installation
 
@@ -24,7 +27,7 @@ devtools::install_github("renliang1996/sola")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Here is a simple example of calculating solar radiation:
 
 ``` r
 library(sola)
@@ -34,10 +37,14 @@ sol_rad(lat = 35.0, date = as.Date("2023-03-15"), ssd = 8)
 #> [1] 17.3613
 ```
 
-## Handling Multiple Locations and Dates
+``` r
+#> [1] 17.3613
+```
 
-The `sola` package can efficiently process large datasets. Here’s an
-example of estimating solar radiation for multiple locations and dates:
+### Vectorization calculation
+
+To address the limitation of certain packages that can only input a
+single value, we can input a vector for computation:
 
 ``` r
 latitudes <- c(35, -15, 50)
@@ -48,7 +55,11 @@ sol_rad(lat = latitudes, date = dates, ssd = sunshine_hours)
 #> [1] 17.361305 18.591773  7.255484
 ```
 
-## Performance Testing with Large Datasets
+``` r
+#> [1] 17.361305 18.591773  7.255484
+```
+
+### Performance Testing with Large Datasets
 
 The following example demonstrates how `sola` can handle a dataset with
 10,000 records efficiently:
@@ -63,11 +74,17 @@ system.time({
   results <- sol_rad(lat = test_lat, date = test_date, ssd = test_ssd)
 })
 #> 用户 系统 流逝 
-#> 0.04 0.00 0.05
+#> 0.05 0.00 0.05
 ```
 
 ``` r
+#> user system elapsed 
+#> 0.04 0.00 0.05
 # View the first few results
 head(results)
+#> [1] 24.729763 29.402079 23.245299  1.090254  0.000000  4.183973
+```
+
+``` r
 #> [1] 24.729763 29.402079 23.245299  1.090254  0.000000  4.183973
 ```
