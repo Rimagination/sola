@@ -8,7 +8,7 @@
 
 The goal of `sola` is to provide tools for solar resource assessment and
 utilization. The package implements functions for calculating solar
-radiation based on daylight hours, latitude, and other related
+radiation based on sunshine hours, latitude, and other related
 parameters. The main advantage of `sola` is the use of vectorized
 operations, allowing efficient computation of large datasets.
 
