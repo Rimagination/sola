@@ -7,32 +7,28 @@
 sol_rad(lat, date, ssd, N = NULL, ext_rad = NULL, A = 0.25, B = 0.5)
 }
 \arguments{
-\item{lat}{Numeric vector. Latitude in degrees. Positive values indicate locations north of the equator, and negative values indicate locations south of the equator.}
+\item{lat}{Numeric vector. Latitude in degrees.}
 
-\item{date}{Date or character vector. The date for which the solar radiation is estimated. It accepts Date objects or date-like strings that can be coerced to Date.}
+\item{date}{Date or character vector. The date for which the solar radiation is estimated.}
 
-\item{ssd}{Numeric vector. Sunshine duration in hours, representing the actual hours of sunshine received on the given day.}
+\item{ssd}{Numeric vector. Sunshine duration in hours.}
 
-\item{N}{Optional numeric vector. The maximum possible sunshine duration (day length) in hours. If not provided, it is calculated based on latitude and date.}
+\item{N}{Optional numeric vector. The maximum possible sunshine duration (day length) in hours.}
 
-\item{ext_rad}{Optional numeric vector. Extraterrestrial radiation in MJ/m²/day. If not provided, it is calculated based on latitude and date.}
+\item{ext_rad}{Optional numeric vector. Extraterrestrial radiation in MJ/m²/day.}
 
-\item{A}{Numeric. Angstrom-Prescott coefficient A, defaulting to 0.25. This coefficient is used in the calculation of solar radiation.}
+\item{A}{Numeric. Angstrom-Prescott coefficient A, defaulting to 0.25.}
 
-\item{B}{Numeric. Angstrom-Prescott coefficient B, defaulting to 0.50. This coefficient is used in the calculation of solar radiation.}
+\item{B}{Numeric. Angstrom-Prescott coefficient B, defaulting to 0.50.}
 }
 \value{
-A numeric vector of estimated solar radiation values in MJ/m²/day for the given latitude, date, and sunshine duration.
+A numeric vector of estimated solar radiation values in MJ/m²/day.
 }
 \description{
-The \code{sol_rad} function estimates daily solar radiation on a horizontal surface using the Angstrom-Prescott model, based on sunshine duration, latitude, and date. The function can internally calculate extraterrestrial radiation (\code{ext_rad}) and maximum possible sunshine duration (\code{N}) if these are not provided as inputs.
+The \code{sol_rad} function estimates daily solar radiation on a horizontal surface using the Angstrom-Prescott model, based on sunshine duration, latitude, and date.
 }
 \details{
-The function uses the Angstrom-Prescott equation to estimate solar radiation:
-\deqn{R_s = (A + B \times (ssd / N)) \times ext\_rad}
-where \code{R_s} is the estimated solar radiation, \code{ssd} is the actual sunshine duration, \code{N} is the maximum possible sunshine duration, and \code{ext_rad} is the extraterrestrial radiation.
-
-If either \code{N} or \code{ext_rad} is not provided, the function calculates them using the input latitude and date. Values of \code{N} that are zero or negative are replaced with a very small positive number (1e-6) to avoid division by zero errors.
+The function uses the Angstrom-Prescott equation to estimate solar radiation.
 }
 \examples{
 # Estimate solar radiation for a single location and date

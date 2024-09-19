@@ -3,5 +3,6 @@
 export(day_length)
 export(doy)
 export(ext_rad)
+export(radNC)
 export(sol_dec)
 export(sol_rad)
