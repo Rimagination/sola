@@ -31,6 +31,8 @@ devtools::install_github("renliang1996/sola")
 
 ## Example
 
+### Basic Calculation of Solar Radiation
+
 Here is a simple example of calculating solar radiation:
 
 ```{r example}
@@ -68,3 +70,31 @@ system.time({
 head(results)
 ```
 
+## Advanced Usage
+
+### Calculating Solar Radiation from NetCDF Data
+
+The `radNC` function computes daily solar radiation for each pixel in a SpatRaster object using sunshine duration data from a NetCDF file, applying the Angstrom-Prescott model. Here's a step-by-step guide:
+
+```{r with terra}
+library(terra)
+# Assuming 'ssd.nc' is a NetCDF file with the required data
+filename <- system.file("extdata", "ssd.nc", package = "sola")
+ssd <- rast(filename)
+plot(ssd)
+```
+
+Before running the computation, ensure that the necessary libraries are loaded and data is correctly formatted.
+
+```{r NC}
+# Calculate solar radiation
+result_raster <- radNC(ssd)
+
+# Plot the result
+plot(result_raster)
+```
+
+Note that the running time depends on the size of your file.
+
+This example demonstrates how to use the `radNC` function to compute solar radiation from NetCDF data.
+Make sure to have the terra package installed and the appropriate NetCDF file available for this to work.

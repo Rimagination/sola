@@ -18,7 +18,7 @@ A SpatRaster object where each layer contains the computed solar radiation (in M
 The \code{radNC} function computes daily solar radiation for each pixel in a SpatRaster object based on sunshine duration data from a NetCDF file. It uses the Angstrom-Prescott model implemented in the \code{sol_rad} function.
 }
 \details{
-This function extracts the sunshine duration from each pixel in the \code{ssd} SpatRaster, and computes solar radiation for each pixel and each layer (day) using the Angstrom-Prescott model. The model requires sunshine duration, latitude, and the corresponding date as inputs. If any required attributes are missing, a warning is issued.
+This function extracts the sunshine duration from each pixel in the \code{ssd} SpatRaster, and computes solar radiation for each pixel and each layer (day) using the Angstrom-Prescott model. The model requires sunshine duration, latitude, and the corresponding date as inputs. If any required attributes are missing, a warning or error is issued.
 }
 \examples{
 \dontrun{

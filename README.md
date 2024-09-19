@@ -26,6 +26,8 @@ devtools::install_github("renliang1996/sola")
 
 ## Example
 
+### Basic Calculation of Solar Radiation
+
 Here is a simple example of calculating solar radiation:
 
 ``` r
@@ -65,10 +67,55 @@ system.time({
   results <- sol_rad(lat = test_lat, date = test_date, ssd = test_ssd)
 })
 #> 用户 系统 流逝 
-#> 0.06 0.00 0.06
+#> 0.05 0.00 0.04
 ```
 
 ``` r
 head(results)
-#> [1] 24.729763 29.402079 23.245299  1.090254  0.000000  4.183973
+#> [1] 37.144712 33.667359 23.245299  1.090254  0.000000  4.183973
 ```
+
+## Advanced Usage
+
+### Calculating Solar Radiation from NetCDF Data
+
+The `radNC` function computes daily solar radiation for each pixel in a
+SpatRaster object using sunshine duration data from a NetCDF file,
+applying the Angstrom-Prescott model. Here’s a step-by-step guide:
+
+``` r
+library(terra)
+#> terra 1.7.78
+```
+
+``` r
+# Assuming 'ssd.nc' is a NetCDF file with the required data
+filename <- system.file("extdata", "ssd.nc", package = "sola")
+ssd <- rast(filename)
+plot(ssd)
+```
+
+<img src="man/figures/README-with terra-1.png" width="100%" />
+
+Before running the computation, ensure that the necessary libraries are
+loaded and data is correctly formatted.
+
+``` r
+# Calculate solar radiation
+result_raster <- radNC(ssd)
+#>   |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%  |                                                                              |============================                                          |  40%  |                                                                              |==========================================                            |  60%  |                                                                              |========================================================              |  80%  |                                                                              |======================================================================| 100%
+```
+
+``` r
+
+# Plot the result
+plot(result_raster)
+```
+
+<img src="man/figures/README-NC-1.png" width="100%" />
+
+Note that the running time depends on the size of your file.
+
+This example demonstrates how to use the `radNC` function to compute
+solar radiation from NetCDF data. Make sure to have the terra package
+installed and the appropriate NetCDF file available for this to work.
