@@ -34,8 +34,8 @@ Here is a simple example of calculating solar radiation:
 library(sola)
 
 # Calculate solar radiation for March 15, 2023, at latitude 35 with 8 hours of sunshine
-sol_rad(lat = 35.0, date = as.Date("2023-03-15"), ssd = 8)
-#> [1] 17.3613
+calc_Rs(lat = 35.0, date = as.Date("2023-03-15"), ssd = 8)
+#> [1] 17.39019
 ```
 
 ### Vectorization calculation
@@ -48,8 +48,8 @@ latitudes <- c(35, -15, 50)
 dates <- as.Date(c("2023-03-15", "2024-06-21", "2023-11-01"))
 sunshine_hours <- c(8, 10, 6)
 
-sol_rad(lat = latitudes, date = dates, ssd = sunshine_hours)
-#> [1] 17.361305 18.591773  7.255484
+calc_Rs(lat = latitudes, date = dates, ssd = sunshine_hours)
+#> [1] 17.390195 18.596638  7.233635
 ```
 
 ### Performance Testing with Large Datasets
@@ -64,15 +64,15 @@ test_date <- as.Date("2023-01-01") + sample(1:365, 10000, replace = TRUE)
 test_ssd <- runif(10000, 0, 24)
 
 system.time({
-  results <- sol_rad(lat = test_lat, date = test_date, ssd = test_ssd)
+  results <- calc_Rs(lat = test_lat, date = test_date, ssd = test_ssd)
 })
 #> 用户 系统 流逝 
-#> 0.05 0.00 0.04
+#> 0.15 0.00 0.15
 ```
 
 ``` r
 head(results)
-#> [1] 37.144712 33.667359 23.245299  1.090254  0.000000  4.183973
+#> [1] 37.187776 33.641994 23.242994  1.107624  0.000000  4.139500
 ```
 
 ## Advanced Usage
@@ -101,9 +101,11 @@ Before running the computation, ensure that the necessary libraries are
 loaded and data is correctly formatted.
 
 ``` r
-# Calculate solar radiation
-result_raster <- radNC(ssd)
-#>   |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%  |                                                                              |============================                                          |  40%  |                                                                              |==========================================                            |  60%  |                                                                              |========================================================              |  80%  |                                                                              |======================================================================| 100%
+#Set the negative values of SSD to 0, and if na_neg is TRUE, then set it to NA.
+result_raster <- radNC(ssd, na_neg = FALSE) 
+#>   |                                                                              |                                                                      |   0%  |                                                                              |==============                                                        |  20%Estimated remaining time: 2.8 secs  |                                                                              |============================                                          |  40%Estimated remaining time: 2.2 secs  |                                                                              |==========================================                            |  60%Estimated remaining time: 1.5 secs  |                                                                              |========================================================              |  80%Estimated remaining time: 0.73 secs  |                                                                              |======================================================================| 100%Estimated remaining time: 0 secs
+#> 
+#> Total computation time: 3.8 secs
 ```
 
 ``` r

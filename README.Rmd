@@ -39,7 +39,7 @@ Here is a simple example of calculating solar radiation:
 library(sola)
 
 # Calculate solar radiation for March 15, 2023, at latitude 35 with 8 hours of sunshine
-sol_rad(lat = 35.0, date = as.Date("2023-03-15"), ssd = 8)
+calc_Rs(lat = 35.0, date = as.Date("2023-03-15"), ssd = 8)
 ```
 
 ### Vectorization calculation
@@ -51,7 +51,7 @@ latitudes <- c(35, -15, 50)
 dates <- as.Date(c("2023-03-15", "2024-06-21", "2023-11-01"))
 sunshine_hours <- c(8, 10, 6)
 
-sol_rad(lat = latitudes, date = dates, ssd = sunshine_hours)
+calc_Rs(lat = latitudes, date = dates, ssd = sunshine_hours)
 ```
 
 ### Performance Testing with Large Datasets
@@ -65,7 +65,7 @@ test_date <- as.Date("2023-01-01") + sample(1:365, 10000, replace = TRUE)
 test_ssd <- runif(10000, 0, 24)
 
 system.time({
-  results <- sol_rad(lat = test_lat, date = test_date, ssd = test_ssd)
+  results <- calc_Rs(lat = test_lat, date = test_date, ssd = test_ssd)
 })
 head(results)
 ```
@@ -87,8 +87,8 @@ plot(ssd)
 Before running the computation, ensure that the necessary libraries are loaded and data is correctly formatted.
 
 ```{r NC}
-# Calculate solar radiation
-result_raster <- radNC(ssd)
+#Set the negative values of SSD to 0, and if na_neg is TRUE, then set it to NA.
+result_raster <- radNC(ssd, na_neg = FALSE) 
 
 # Plot the result
 plot(result_raster)

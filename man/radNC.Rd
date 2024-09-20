@@ -4,12 +4,14 @@
 \alias{radNC}
 \title{Compute Solar Radiation from NetCDF Data using Angstrom-Prescott Model}
 \usage{
-radNC(ssd, show_progress = TRUE)
+radNC(ssd, show_progress = TRUE, na_neg = TRUE)
 }
 \arguments{
 \item{ssd}{SpatRaster object. A multi-layer raster containing sunshine duration data (in hours) for each pixel, with one layer per day.}
 
 \item{show_progress}{Logical. Whether to display a progress bar during the computation. Defaults to \code{TRUE}.}
+
+\item{na_neg}{Logical. If \code{TRUE}, negative sunshine duration values are set to NA; if \code{FALSE}, they are set to 0. Defaults to \code{TRUE}.}
 }
 \value{
 A SpatRaster object where each layer contains the computed solar radiation (in MJ/m²/day) for each corresponding day.
